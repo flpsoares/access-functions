@@ -17,6 +17,7 @@ import {
 
 import { SiTiktok } from 'react-icons/si'
 import { IconBaseProps } from 'react-icons'
+import api from '../../services/api'
 
 interface LinkProps {
   title: string,
@@ -60,6 +61,12 @@ const Link: React.FC<LinkProps> = ({ title, url, icon, views}) => {
     }
   }, [icon])
 
+  const getDeleteInfo = () => {
+    api.get(`link/${title}`).then(res => {
+      
+    })
+  }
+
   return (
     <Container>
       <div>
@@ -72,7 +79,7 @@ const Link: React.FC<LinkProps> = ({ title, url, icon, views}) => {
         <button>
           <BiEditAlt />
         </button>
-        <button>
+        <button onClick={getDeleteInfo}>
           <MdDelete color="red" />
         </button>
       </div>
