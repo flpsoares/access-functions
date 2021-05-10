@@ -5,9 +5,10 @@ import api from './services/api'
 
 import Link from './components/Link'
 import ModalCreateLink from './components/ModalCreateLink'
-import { CreateLinkContext } from './contexts/ModalCreateLink';
-import { UpdateListContext } from './contexts/UpdateList';
-// import ModalDeleteLink from './components/ModalDeleteLink'
+import { CreateLinkContext } from './contexts/ModalCreateLink'
+import { UpdateListContext } from './contexts/UpdateList'
+import { DeleteLinkContext } from './contexts/DeleteLink'
+import ModalDeleteLink from './components/ModalDeleteLink'
 // import ModalUpdateLink from './components/ModalUpdateLink'
 
 interface LinkProps {
@@ -19,10 +20,11 @@ interface LinkProps {
 }
 
 function App() {
-  const [ links, setLinks ] = useState<LinkProps[]>([])
-
   const { modalCreateLinkIsOpen, openModalCreateLink } = useContext(CreateLinkContext)
   const { linkLength, setLinkLength } = useContext(UpdateListContext)
+  const { deleteTitle } = useContext(DeleteLinkContext)
+  
+  const [ links, setLinks ] = useState<LinkProps[]>([])
 
   useEffect(() => {
     api.get('links').then(res => {
@@ -48,7 +50,7 @@ function App() {
         })
       }
       { modalCreateLinkIsOpen &&  <ModalCreateLink />}
-      {/* <ModalDeleteLink /> */}
+      { deleteTitle && <ModalDeleteLink title={deleteTitle} /> }
       {/* <ModalUpdateLink /> */}
     </Container>
   );

@@ -23,13 +23,14 @@ export function UpdateListProvider({children}: UpdateListProviderProps) {
     setLinkLength(linkLength + 1)
   }
 
+  const removeLink = () => {
+    setLinkLength(linkLength - 1)
+  }
+
   const updateLink = () => {
     setLinkUpdated(!linkUpdated)
   }
 
-  const removeLink = () => {
-    setLinkLength(linkLength - 1)
-  }
 
   return (
     <UpdateListContext.Provider 

@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Container } from './style'
 
 import { BiEditAlt } from 'react-icons/bi'
 import { MdDelete } from 'react-icons/md'
 import { IoIosEye } from 'react-icons/io'
-
+import { SiTiktok } from 'react-icons/si'
+import { IconBaseProps } from 'react-icons'
 import { 
   FaFacebookF,
   FaInstagram,
@@ -15,9 +16,8 @@ import {
   FaYoutube
 } from 'react-icons/fa'
 
-import { SiTiktok } from 'react-icons/si'
-import { IconBaseProps } from 'react-icons'
 import api from '../../services/api'
+import { DeleteLinkContext } from '../../contexts/DeleteLink'
 
 interface LinkProps {
   title: string,
@@ -28,6 +28,8 @@ interface LinkProps {
 
 const Link: React.FC<LinkProps> = ({ title, url, icon, views}) => {
   const [currentIcon, setCurrentIcon] = useState<IconBaseProps>()
+
+  const { setDeleteTitle } = useContext(DeleteLinkContext)
 
   useEffect(() => {
     switch(icon) {
@@ -63,7 +65,7 @@ const Link: React.FC<LinkProps> = ({ title, url, icon, views}) => {
 
   const getDeleteInfo = () => {
     api.get(`link/${title}`).then(res => {
-      
+      setDeleteTitle(res.data.title)
     })
   }
 
