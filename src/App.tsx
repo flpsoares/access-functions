@@ -9,7 +9,8 @@ import { CreateLinkContext } from './contexts/ModalCreateLink'
 import { UpdateListContext } from './contexts/UpdateList'
 import { DeleteLinkContext } from './contexts/DeleteLink'
 import ModalDeleteLink from './components/ModalDeleteLink'
-// import ModalUpdateLink from './components/ModalUpdateLink'
+import { UpdateLinkContext } from './contexts/UpdateLink';
+import ModalUpdateLink from './components/ModalUpdateLink'
 
 interface LinkProps {
   id: number
@@ -21,8 +22,9 @@ interface LinkProps {
 
 function App() {
   const { modalCreateLinkIsOpen, openModalCreateLink } = useContext(CreateLinkContext)
-  const { linkLength, setLinkLength } = useContext(UpdateListContext)
+  const { linkLength, setLinkLength, linkUpdated } = useContext(UpdateListContext)
   const { deleteTitle } = useContext(DeleteLinkContext)
+  const { updateTitle, updateUrl, updateIcon } = useContext(UpdateLinkContext)
   
   const [ links, setLinks ] = useState<LinkProps[]>([])
 
@@ -31,7 +33,7 @@ function App() {
       setLinks(res.data)
       setLinkLength(res.data.length)
     })
-  }, [linkLength, setLinkLength])
+  }, [linkLength, setLinkLength, linkUpdated])
 
   return (
     <Container>
@@ -51,7 +53,7 @@ function App() {
       }
       { modalCreateLinkIsOpen &&  <ModalCreateLink />}
       { deleteTitle && <ModalDeleteLink title={deleteTitle} /> }
-      {/* <ModalUpdateLink /> */}
+      { updateIcon &&  <ModalUpdateLink title={updateTitle} url={updateUrl} icon={updateIcon} /> }
     </Container>
   );
 }

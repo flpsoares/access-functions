@@ -18,6 +18,7 @@ import {
 
 import api from '../../services/api'
 import { DeleteLinkContext } from '../../contexts/DeleteLink'
+import { UpdateLinkContext } from '../../contexts/UpdateLink'
 
 interface LinkProps {
   title: string,
@@ -30,6 +31,7 @@ const Link: React.FC<LinkProps> = ({ title, url, icon, views}) => {
   const [currentIcon, setCurrentIcon] = useState<IconBaseProps>()
 
   const { setDeleteTitle } = useContext(DeleteLinkContext)
+  const { UpdateInfos, updateUrl } = useContext(UpdateLinkContext)
 
   useEffect(() => {
     switch(icon) {
@@ -69,16 +71,23 @@ const Link: React.FC<LinkProps> = ({ title, url, icon, views}) => {
     })
   }
 
+  const getUpdateInfo = () => {
+    api.get(`link/${title}`).then(res => {
+      UpdateInfos(res.data.title, res.data.url, res.data.icon)
+      console.log(updateUrl)
+    })
+  }
+
   return (
     <Container>
       <div>
-        <button type="button">{currentIcon}</button>
+        {currentIcon}
       </div>
       <div>
         <span>{title}</span>
       </div>
       <div>
-        <button>
+        <button onClick={getUpdateInfo}>
           <BiEditAlt />
         </button>
         <button onClick={getDeleteInfo}>
