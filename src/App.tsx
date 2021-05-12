@@ -5,12 +5,16 @@ import api from './services/api'
 
 import Link from './components/Link'
 import ModalCreateLink from './components/ModalCreateLink'
+import ModalDeleteLink from './components/ModalDeleteLink'
+import ModalUpdateLink from './components/ModalUpdateLink'
+
 import { CreateLinkContext } from './contexts/ModalCreateLink'
 import { UpdateListContext } from './contexts/UpdateList'
 import { DeleteLinkContext } from './contexts/DeleteLink'
-import ModalDeleteLink from './components/ModalDeleteLink'
-import { UpdateLinkContext } from './contexts/UpdateLink';
-import ModalUpdateLink from './components/ModalUpdateLink'
+import { UpdateLinkContext } from './contexts/UpdateLink'
+
+import { AnimatePresence } from 'framer-motion'
+
 
 interface LinkProps {
   id: number
@@ -51,9 +55,11 @@ function App() {
           )
         })
       }
-      { modalCreateLinkIsOpen &&  <ModalCreateLink />}
-      { deleteTitle && <ModalDeleteLink title={deleteTitle} /> }
-      { updateIcon &&  <ModalUpdateLink title={updateTitle} url={updateUrl} icon={updateIcon} /> }
+      <AnimatePresence>
+        { modalCreateLinkIsOpen &&  <ModalCreateLink />}
+        { deleteTitle && <ModalDeleteLink title={deleteTitle} /> }
+        { updateIcon &&  <ModalUpdateLink title={updateTitle} url={updateUrl} icon={updateIcon} /> }
+      </AnimatePresence>
     </Container>
   );
 }

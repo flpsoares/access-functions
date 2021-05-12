@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+import { motion } from 'framer-motion'
+
+export const Container = styled(motion.div)`
   position: fixed;
 
   top: 0;
@@ -17,7 +19,7 @@ export const Container = styled.div`
   z-index: 1;
 `
 
-export const Box = styled.div`
+export const Box = styled(motion.div)`
   position: relative;
 
   width: 500px;

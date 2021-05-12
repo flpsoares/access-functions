@@ -1,9 +1,12 @@
 import { useContext, useRef, MutableRefObject } from 'react'
 import { Box, Container, CloseButton } from './style'
+
 import { MdClose } from 'react-icons/md'
-import { CreateLinkContext } from '../../contexts/ModalCreateLink'
+
 import api from '../../services/api'
+
 import { UpdateListContext } from '../../contexts/UpdateList'
+import { CreateLinkContext } from '../../contexts/ModalCreateLink'
 
 const ModalCreateLink: React.FC = () => {
   const { closeModalCreateLink } = useContext(CreateLinkContext)
@@ -28,8 +31,28 @@ const ModalCreateLink: React.FC = () => {
   }
 
   return (
-    <Container>
-      <Box>
+    <Container 
+      initial={{
+        opacity: 0
+      }}
+      animate={{
+        opacity: 1
+      }}
+      exit={{
+        opacity: 0
+      }}
+    >
+      <Box 
+        initial={{
+          scale: 0
+        }}
+        animate={{
+          scale: 1
+        }}
+        exit={{
+          scale: 0
+        }}
+      >
         <form method="post">
           <input ref={titleRef} placeholder="title" type="text"/>
           <input ref={urlRef} placeholder="url" type="text"/>

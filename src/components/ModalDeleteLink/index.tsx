@@ -1,9 +1,12 @@
 import { useContext } from 'react'
+import { Container, Box, CloseButton } from './style'
+
 import { MdClose } from 'react-icons/md'
+
+import api from '../../services/api'
+
 import { DeleteLinkContext } from '../../contexts/DeleteLink'
 import { UpdateListContext } from '../../contexts/UpdateList'
-import api from '../../services/api'
-import { Container, Box, CloseButton } from './style'
 
 interface LinkProps {
   title: string
@@ -26,8 +29,16 @@ const ModalDeleteLink: React.FC<LinkProps> = ({title}) => {
   }
 
   return (
-    <Container>
-      <Box>
+    <Container
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0}}
+    >
+      <Box
+        initial={{scale: 0}}
+        animate={{scale: 1}}
+        exit={{scale: 0}}
+      >
         <h3>Deseja mesmo excluir o link {title}?</h3>
         <div>
           <button type="button" onClick={handleSubmit}>Sim</button>

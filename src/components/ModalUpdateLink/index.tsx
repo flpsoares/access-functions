@@ -1,9 +1,12 @@
 import { useRef, MutableRefObject, useContext } from 'react'
+import { Container, Box, CloseButton } from './style'
+
 import { MdClose } from 'react-icons/md'
+
+import api from '../../services/api'
+
 import { UpdateLinkContext } from '../../contexts/UpdateLink'
 import { UpdateListContext } from '../../contexts/UpdateList'
-import api from '../../services/api'
-import { Container, Box, CloseButton } from './style'
 
 interface LinkProps {
   title: string
@@ -32,17 +35,21 @@ const ModalUpdateLink: React.FC<LinkProps> = ({ title, url, icon }) => {
       icon: iconRef.current.value
     })
 
-    // console.log(titleRef.current.value)
-    // console.log(urlRef.current.value)
-    // console.log(iconRef.current.value)
-
     updateLink()
     closeModal()
   }
 
   return (
-    <Container>
-      <Box>
+    <Container
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
+      exit={{opacity: 0}}
+    >
+      <Box
+        initial={{scale: 0}}
+        animate={{scale: 1}}
+        exit={{scale: 0}}
+      >
         <form method="put">
           <div>
             <select ref={iconRef} defaultValue={icon}>
