@@ -3,6 +3,8 @@ import { Container } from './styles/styles'
 
 import api from './services/api'
 
+import { useAlert } from './hooks/useAlert'
+
 import Link from './components/Link'
 import ModalCreateLink from './components/ModalCreateLink'
 import ModalDeleteLink from './components/ModalDeleteLink'
@@ -14,6 +16,7 @@ import { DeleteLinkContext } from './contexts/DeleteLink'
 import { UpdateLinkContext } from './contexts/UpdateLink'
 
 import { AnimatePresence } from 'framer-motion'
+import Alert from './components/Alert';
 
 
 interface LinkProps {
@@ -29,6 +32,8 @@ function App() {
   const { linkLength, setLinkLength, linkUpdated } = useContext(UpdateListContext)
   const { deleteTitle } = useContext(DeleteLinkContext)
   const { updateTitle, updateUrl, updateIcon } = useContext(UpdateLinkContext)
+
+  const { content, error, success } = useAlert()
   
   const [ links, setLinks ] = useState<LinkProps[]>([])
 
@@ -42,6 +47,8 @@ function App() {
   return (
     <Container>
       <button onClick={openModalCreateLink}>Criar</button>
+      { success && <Alert success content={content} /> }
+      { error && <Alert content={content} /> }
       { 
         links.map(link => {
           return (
