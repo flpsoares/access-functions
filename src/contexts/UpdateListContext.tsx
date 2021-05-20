@@ -7,7 +7,7 @@ interface UpdateListContextData {
   addLink: () => void
   updateLink: () => void
   removeLink: () => void
-} 
+}
 
 interface UpdateListProviderProps {
   children: ReactNode
@@ -15,9 +15,9 @@ interface UpdateListProviderProps {
 
 export const UpdateListContext = createContext({} as UpdateListContextData)
 
-export function UpdateListProvider({children}: UpdateListProviderProps) {
-  const [ linkLength, setLinkLength ] = useState(0)
-  const [ linkUpdated, setLinkUpdated ] = useState(false)
+export function UpdateListProvider({ children }: UpdateListProviderProps) {
+  const [linkLength, setLinkLength] = useState(0)
+  const [linkUpdated, setLinkUpdated] = useState(false)
 
   const addLink = () => {
     setLinkLength(linkLength + 1)
@@ -27,13 +27,12 @@ export function UpdateListProvider({children}: UpdateListProviderProps) {
     setLinkLength(linkLength - 1)
   }
 
-
   const updateLink = () => {
     setLinkUpdated(!linkUpdated)
   }
 
   return (
-    <UpdateListContext.Provider 
+    <UpdateListContext.Provider
       value={{
         linkLength,
         linkUpdated,

@@ -7,7 +7,7 @@ export const Container = styled(motion.div)`
 
   padding: 8px 5px;
 
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   border-radius: 4px;
 
   margin-top: 10px;
@@ -47,13 +47,13 @@ const loading = keyframes`
   }
 `
 
-export const Progress =  styled.div`
+export const Progress = styled.div`
   position: absolute;
   left: 0;
   bottom: 0;
   height: 3px;
   width: 100%;
-  
+
   div {
     animation: ${loading} 5s linear;
     background: rgba(0, 0, 0, 0.6);

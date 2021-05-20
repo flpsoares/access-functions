@@ -12,5 +12,4 @@ const api = axios.create({
 //   return AlertEvents.emit('currentError', error.response.data.errors[0].message)
 // });
 
-
 export default api

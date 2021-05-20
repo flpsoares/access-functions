@@ -14,10 +14,10 @@ interface DeleteLinkProviderProps {
 
 export const DeleteLinkContext = createContext({} as DeleteLinkContextData)
 
-export function DeleteLinkProvider({children}: DeleteLinkProviderProps) {
-  const [ modalDeleteLinkIsOpen, setModalDeleteLinkIsOpen ] = useState(false)
+export function DeleteLinkProvider({ children }: DeleteLinkProviderProps) {
+  const [modalDeleteLinkIsOpen, setModalDeleteLinkIsOpen] = useState(false)
 
-  const [ deleteTitle, setDeleteTitle ] = useState('')
+  const [deleteTitle, setDeleteTitle] = useState('')
 
   const openModalDeleteLink = () => {
     setModalDeleteLinkIsOpen(true)
@@ -28,13 +28,13 @@ export function DeleteLinkProvider({children}: DeleteLinkProviderProps) {
   }
 
   return (
-    <DeleteLinkContext.Provider 
+    <DeleteLinkContext.Provider
       value={{
         modalDeleteLinkIsOpen,
         openModalDeleteLink,
         closeModalDeleteLink,
         deleteTitle,
-        setDeleteTitle,
+        setDeleteTitle
       }}
     >
       {children}

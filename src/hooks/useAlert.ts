@@ -15,5 +15,5 @@ export function useAlert() {
     }
   }, [])
 
-  return {success, error}
+  return { success, error }
 }

@@ -16,12 +16,12 @@ interface UpdateLinkProviderProps {
 
 export const UpdateLinkContext = createContext({} as UpdateLinkData)
 
-export function UpdateLinkProvider({children}: UpdateLinkProviderProps) {
-  const [ modalUpdateLinkIsOpen, setModalUpdateLinkIsOpen ] = useState(false)
+export function UpdateLinkProvider({ children }: UpdateLinkProviderProps) {
+  const [modalUpdateLinkIsOpen, setModalUpdateLinkIsOpen] = useState(false)
 
-  const [ updateTitle, setUpdateTitle ] = useState('')
-  const [ updateUrl, setUpdateUrl ] = useState('')
-  const [ updateIcon, setUpdateIcon ] = useState('')
+  const [updateTitle, setUpdateTitle] = useState('')
+  const [updateUrl, setUpdateUrl] = useState('')
+  const [updateIcon, setUpdateIcon] = useState('')
 
   const UpdateInfos = (title: string, url: string, icon: string) => {
     setUpdateTitle(title)
@@ -37,7 +37,7 @@ export function UpdateLinkProvider({children}: UpdateLinkProviderProps) {
   }
 
   return (
-    <UpdateLinkContext.Provider 
+    <UpdateLinkContext.Provider
       value={{
         modalUpdateLinkIsOpen,
         openModalUpdateLink,
@@ -45,7 +45,7 @@ export function UpdateLinkProvider({children}: UpdateLinkProviderProps) {
         UpdateInfos,
         updateTitle,
         updateUrl,
-        updateIcon, 
+        updateIcon
       }}
     >
       {children}

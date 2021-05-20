@@ -30,29 +30,26 @@ const ModalUpdateLink: React.FC<LinkProps> = ({ title, url, icon }) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault()
 
-    await api.put(`link/${title}`, {
-      title: titleRef.current.value,
-      url: urlRef.current.value,
-      icon: iconRef.current.value
-    }).then(() => {
-      AlertEvents.emit('currentSuccess', 'Link atualizado com sucesso!')
-      updateLink()
-      closeModal()
-    })
-
+    await api
+      .put(`link/${title}`, {
+        title: titleRef.current.value,
+        url: urlRef.current.value,
+        icon: iconRef.current.value
+      })
+      .then(() => {
+        AlertEvents.emit('currentSuccess', 'Link atualizado com sucesso!')
+        updateLink()
+        closeModal()
+      })
   }
 
   return (
     <Container
-      initial={{opacity: 0}}
-      animate={{opacity: 1}}
-      exit={{opacity: 0}}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
-      <Box
-        initial={{scale: 0}}
-        animate={{scale: 1}}
-        exit={{scale: 0}}
-      >
+      <Box initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
         <form method="put">
           <div>
             <select ref={iconRef} defaultValue={icon}>
@@ -66,10 +63,10 @@ const ModalUpdateLink: React.FC<LinkProps> = ({ title, url, icon }) => {
               <option value="tiktok">Tik tok</option>
               <option value="youtube">Youtube</option>
             </select>
-            <input ref={titleRef} defaultValue={title} type="text"/>
+            <input ref={titleRef} defaultValue={title} type="text" />
           </div>
           <div>
-            <input ref={urlRef} defaultValue={url} type="text"/>
+            <input ref={urlRef} defaultValue={url} type="text" />
           </div>
           <button onClick={handleSubmit}>Atualizar</button>
         </form>
@@ -82,4 +79,3 @@ const ModalUpdateLink: React.FC<LinkProps> = ({ title, url, icon }) => {
 }
 
 export default ModalUpdateLink
-

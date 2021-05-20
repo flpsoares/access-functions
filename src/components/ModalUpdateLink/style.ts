@@ -84,12 +84,12 @@ export const Box = styled(motion.div)`
     border-radius: 3px;
 
     padding: 10px;
-    
+
     font-size: 16px;
 
     margin-top: 30px;
 
-    transition: all .3s;
+    transition: all 0.3s;
 
     &:hover {
       background: 0;

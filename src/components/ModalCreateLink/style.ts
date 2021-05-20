@@ -66,7 +66,7 @@ export const Box = styled(motion.div)`
 
       font-weight: 600;
 
-      transition: border-radius .3s;
+      transition: border-radius 0.3s;
 
       &:hover {
         border-radius: 5px;

@@ -1,8 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react'
 import { Container } from './styles/styles'
 
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult
+} from 'react-beautiful-dnd'
 
 import api from './services/api'
 
@@ -20,7 +24,7 @@ import { UpdateLinkContext } from './contexts/UpdateLinkContext'
 
 import { AnimatePresence } from 'framer-motion'
 
-import Alert from './components/Alert';
+import Alert from './components/Alert'
 
 interface LinkProps {
   id: number
@@ -31,24 +35,25 @@ interface LinkProps {
 }
 
 function App() {
-  const { modalCreateLinkIsOpen, openModalCreateLink } = useContext(CreateLinkContext)
+  const { modalCreateLinkIsOpen, openModalCreateLink } =
+    useContext(CreateLinkContext)
   const { linkLength, setLinkLength, linkUpdated } = useContext(UpdateListContext)
   const { deleteTitle } = useContext(DeleteLinkContext)
   const { updateTitle, updateUrl, updateIcon } = useContext(UpdateLinkContext)
 
   const { success } = useAlert()
-  
-  const [ links, setLinks ] = useState<LinkProps[]>([])
+
+  const [links, setLinks] = useState<LinkProps[]>([])
 
   useEffect(() => {
-    api.get('links').then(res => {
+    api.get('links').then((res) => {
       setLinks(res.data)
       setLinkLength(res.data.length)
     })
   }, [linkLength, linkUpdated])
 
   const handleOnDragEnd = (result: DropResult) => {
-    if(!result.destination) return  
+    if (!result.destination) return
     const items = Array.from(links)
     const [reorderedItem] = items.splice(result.source.index, 1)
     items.splice(result.destination.index, 0, reorderedItem)
@@ -71,45 +76,52 @@ function App() {
     <AnimatePresence>
       <Container>
         <button onClick={openModalCreateLink}>Criar</button>
-          { success && <Alert isSuccess content={success} /> }
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="links">
-              {(provided) => {
-                return (
-                  <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {
-                    links.map((link, index) => {
-                      return (
-                        <Draggable key={link.id} draggableId={String(link.id)} index={index}>
-                          {(provided) => {
-                            return (
-                              <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                                <Link
-                                  title={link.title}
-                                  url={link.url}
-                                  icon={link.icon}
-                                  views={link.views}
-                                />
-                              </div>
-                            )
-                          }}
-                        </Draggable>
-                      )
-                    })
-                  }
+        {success && <Alert isSuccess content={success} />}
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="links">
+            {(provided) => {
+              return (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {links.map((link, index) => {
+                    return (
+                      <Draggable
+                        key={link.id}
+                        draggableId={String(link.id)}
+                        index={index}
+                      >
+                        {(provided) => {
+                          return (
+                            <div
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                            >
+                              <Link
+                                title={link.title}
+                                url={link.url}
+                                icon={link.icon}
+                                views={link.views}
+                              />
+                            </div>
+                          )
+                        }}
+                      </Draggable>
+                    )
+                  })}
                   {provided.placeholder}
                 </div>
-                )
-              }
-              }
-            </Droppable>
-          </DragDropContext>
-          { modalCreateLinkIsOpen &&  <ModalCreateLink />}
-          { deleteTitle && <ModalDeleteLink title={deleteTitle} /> }
-          { updateIcon &&  <ModalUpdateLink title={updateTitle} url={updateUrl} icon={updateIcon} /> }
+              )
+            }}
+          </Droppable>
+        </DragDropContext>
+        {modalCreateLinkIsOpen && <ModalCreateLink />}
+        {deleteTitle && <ModalDeleteLink title={deleteTitle} />}
+        {updateIcon && (
+          <ModalUpdateLink title={updateTitle} url={updateUrl} icon={updateIcon} />
+        )}
       </Container>
     </AnimatePresence>
-  );
+  )
 }
 
-export default App;
+export default App

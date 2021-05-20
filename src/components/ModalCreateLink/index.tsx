@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useRef, MutableRefObject } from 'react'
 import { Box, Container, CloseButton } from './style'
 
@@ -19,7 +18,7 @@ const ModalCreateLink: React.FC = () => {
   const { addLink } = useContext(UpdateListContext)
 
   const { error } = useAlert()
-   
+
   const titleRef = useRef() as MutableRefObject<HTMLInputElement>
   const urlRef = useRef() as MutableRefObject<HTMLInputElement>
   const iconRef = useRef() as MutableRefObject<HTMLSelectElement>
@@ -34,28 +33,29 @@ const ModalCreateLink: React.FC = () => {
     const isTitleValidated = validateField(titleRef)
     const isUrlValidated = validateField(urlRef)
 
-    if(isTitleValidated && isUrlValidated) {
-      api.post('link', {
-        title: titleRef.current.value,
-        url: urlRef.current.value,
-        icon: iconRef.current.value,
-        views: 0
-      }).then(() => {
-        AlertEvents.emit('currentSuccess', 'Link adicionado com sucesso!')
-        addLink()
-        closeModalCreateLink()
-      })
-
+    if (isTitleValidated && isUrlValidated) {
+      api
+        .post('link', {
+          title: titleRef.current.value,
+          url: urlRef.current.value,
+          icon: iconRef.current.value,
+          views: 0
+        })
+        .then(() => {
+          AlertEvents.emit('currentSuccess', 'Link adicionado com sucesso!')
+          addLink()
+          closeModalCreateLink()
+        })
     } else {
       const errors = []
-      if(!isTitleValidated) errors.push('Por favor, insira um título')
-      if(!isUrlValidated) errors.push('Por favor, insira uma url')
+      if (!isTitleValidated) errors.push('Por favor, insira um título')
+      if (!isUrlValidated) errors.push('Por favor, insira uma url')
       AlertEvents.emit('currentError', errors.join(', '))
     }
   }
 
   return (
-    <Container 
+    <Container
       initial={{
         opacity: 0
       }}
@@ -66,10 +66,8 @@ const ModalCreateLink: React.FC = () => {
         opacity: 0
       }}
     >
-      <AnimatePresence>
-        {error && <Alert content={error} />}
-      </AnimatePresence>
-      <Box 
+      <AnimatePresence>{error && <Alert content={error} />}</AnimatePresence>
+      <Box
         initial={{
           scale: 0
         }}
@@ -81,8 +79,8 @@ const ModalCreateLink: React.FC = () => {
         }}
       >
         <form method="post">
-          <input ref={titleRef} placeholder="title" type="text"/>
-          <input ref={urlRef} placeholder="url" type="text"/>
+          <input ref={titleRef} placeholder="title" type="text" />
+          <input ref={urlRef} placeholder="url" type="text" />
           <div>
             <select ref={iconRef}>
               <option value="nenhuma">Nenhuma</option>

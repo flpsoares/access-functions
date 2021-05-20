@@ -11,16 +11,15 @@ export const Container = styled.div`
   margin-top: 20px;
   padding: 25px;
 
-  background: #FFF;
+  background: #fff;
   box-shadow: 0 0 10px gray;
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  grid-template-areas: 
-  'icon title buttons'
-  'url url views'
-  ;
+  grid-template-areas:
+    'icon title buttons'
+    'url url views';
 
   div:nth-child(1) {
     grid-area: icon;
@@ -44,7 +43,7 @@ export const Container = styled.div`
       height: 20px;
       font-size: 20px;
 
-      transition: filter .2s;
+      transition: filter 0.2s;
     }
 
     button:nth-child(1) {

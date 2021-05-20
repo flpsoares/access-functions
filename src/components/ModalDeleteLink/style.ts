@@ -43,7 +43,7 @@ export const Box = styled(motion.div)`
     padding: 2px 5px;
     border-radius: 3px;
 
-    transition: color .2s;
+    transition: color 0.2s;
 
     &:hover {
       color: white;

@@ -6,7 +6,7 @@ import { MdDelete } from 'react-icons/md'
 import { IoIosEye } from 'react-icons/io'
 import { SiTiktok } from 'react-icons/si'
 import { IconBaseProps } from 'react-icons'
-import { 
+import {
   FaFacebookF,
   FaInstagram,
   FaGoogle,
@@ -29,52 +29,51 @@ interface LinkProps {
   [key: string]: any
 }
 
-const Link: React.FC<LinkProps> = ({ title, url, icon, views, ...rest}) => {
+const Link: React.FC<LinkProps> = ({ title, url, icon, views, ...rest }) => {
   const [currentIcon, setCurrentIcon] = useState<IconBaseProps>()
 
   const { setDeleteTitle } = useContext(DeleteLinkContext)
   const { UpdateInfos, updateUrl } = useContext(UpdateLinkContext)
 
   useEffect(() => {
-    switch(icon) {
+    switch (icon) {
       case 'nenhuma':
-
-      break;
+        break
       case 'facebook':
         setCurrentIcon(<FaFacebookF />)
-      break;
+        break
       case 'instagram':
         setCurrentIcon(<FaInstagram />)
-      break;
+        break
       case 'google':
         setCurrentIcon(<FaGoogle />)
-      break;
+        break
       case 'twitter':
         setCurrentIcon(<FaTwitter />)
-      break;
+        break
       case 'pinterest':
         setCurrentIcon(<FaPinterestP />)
-      break;
-      case 'bitcoin': 
+        break
+      case 'bitcoin':
         setCurrentIcon(<FaBitcoin />)
-      break;
+        break
       case 'tiktok':
         setCurrentIcon(<SiTiktok />)
-      break;
-      case 'youtube': 
+        break
+      case 'youtube':
         setCurrentIcon(<FaYoutube />)
-      break;
+        break
     }
   }, [icon])
 
   const getDeleteInfo = () => {
-    api.get(`link/${title}`).then(res => {
+    api.get(`link/${title}`).then((res) => {
       setDeleteTitle(res.data.title)
     })
   }
 
   const getUpdateInfo = () => {
-    api.get(`link/${title}`).then(res => {
+    api.get(`link/${title}`).then((res) => {
       UpdateInfos(res.data.title, res.data.url, res.data.icon)
       console.log(updateUrl)
     })
@@ -82,9 +81,7 @@ const Link: React.FC<LinkProps> = ({ title, url, icon, views, ...rest}) => {
 
   return (
     <Container {...rest}>
-      <div>
-        {currentIcon}
-      </div>
+      <div>{currentIcon}</div>
       <div>
         <span>{title}</span>
       </div>

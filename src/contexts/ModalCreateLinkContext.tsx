@@ -12,8 +12,8 @@ interface CreateLinkProviderProps {
 
 export const CreateLinkContext = createContext({} as CreateLinkContextData)
 
-export function CreateLinkProvider({children}: CreateLinkProviderProps) {
-  const [ modalCreateLinkIsOpen, setModalCreateLinkIsOpen ] = useState(false)
+export function CreateLinkProvider({ children }: CreateLinkProviderProps) {
+  const [modalCreateLinkIsOpen, setModalCreateLinkIsOpen] = useState(false)
 
   const openModalCreateLink = () => {
     setModalCreateLinkIsOpen(true)
@@ -24,11 +24,11 @@ export function CreateLinkProvider({children}: CreateLinkProviderProps) {
   }
 
   return (
-    <CreateLinkContext.Provider 
+    <CreateLinkContext.Provider
       value={{
-      modalCreateLinkIsOpen,
-      openModalCreateLink,
-      closeModalCreateLink
+        modalCreateLinkIsOpen,
+        openModalCreateLink,
+        closeModalCreateLink
       }}
     >
       {children}
