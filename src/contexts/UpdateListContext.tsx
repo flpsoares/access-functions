@@ -22,20 +22,21 @@ export function UpdateListProvider({children}: UpdateListProviderProps) {
 
   const addLink = () => {
     setLinkLength(linkLength + 1)
-    AlertEvents.emit('currentSuccess', true)
-    AlertEvents.emit('currentContent', 'Link adicionado com sucesso!')
+    AlertEvents.emit('currentSuccess', 'Link adicionado com sucesso!')
+    AlertEvents.emit('currentError', '')
   }
 
   const removeLink = () => {
     setLinkLength(linkLength - 1)
-    AlertEvents.emit('currentSuccess', true)
-    AlertEvents.emit('currentContent', 'Link removido com sucesso!')
+    AlertEvents.emit('currentSuccess', 'Link removido com sucesso!')
+    AlertEvents.emit('currentError', '')
   }
+
 
   const updateLink = () => {
     setLinkUpdated(!linkUpdated)
-    AlertEvents.emit('currentSuccess', true)
-    AlertEvents.emit('currentContent', 'Link atualizado com sucesso!')
+    AlertEvents.emit('currentSuccess', 'Link atualizado com sucesso!')
+    AlertEvents.emit('currentError', '')
   }
 
   return (

@@ -5,8 +5,8 @@ import { MdClose } from 'react-icons/md'
 
 import api from '../../services/api'
 
-import { UpdateLinkContext } from '../../contexts/UpdateLink'
-import { UpdateListContext } from '../../contexts/UpdateList'
+import { UpdateLinkContext } from '../../contexts/UpdateLinkContext'
+import { UpdateListContext } from '../../contexts/UpdateListContext'
 
 interface LinkProps {
   title: string

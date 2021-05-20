@@ -1,17 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useRef, MutableRefObject } from 'react'
 import { Box, Container, CloseButton } from './style'
+
+import { AnimatePresence } from 'framer-motion'
 
 import { MdClose } from 'react-icons/md'
 
 import api from '../../services/api'
+import { useAlert } from '../../hooks/useAlert'
 
-import { UpdateListContext } from '../../contexts/UpdateList'
-import { CreateLinkContext } from '../../contexts/ModalCreateLink'
+import { UpdateListContext } from '../../contexts/UpdateListContext'
+import { CreateLinkContext } from '../../contexts/ModalCreateLinkContext'
+import Alert from '../Alert'
 
 const ModalCreateLink: React.FC = () => {
   const { closeModalCreateLink } = useContext(CreateLinkContext)
   const { addLink } = useContext(UpdateListContext)
 
+  const { error } = useAlert()
+   
   const titleRef = useRef() as MutableRefObject<HTMLInputElement>
   const urlRef = useRef() as MutableRefObject<HTMLInputElement>
   const iconRef = useRef() as MutableRefObject<HTMLSelectElement>
@@ -42,6 +49,9 @@ const ModalCreateLink: React.FC = () => {
         opacity: 0
       }}
     >
+      <AnimatePresence>
+        {error && <Alert content={error} />}
+      </AnimatePresence>
       <Box 
         initial={{
           scale: 0

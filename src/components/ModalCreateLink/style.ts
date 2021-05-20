@@ -16,6 +16,7 @@ export const Container = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   z-index: 1;
 `
 
@@ -31,6 +32,7 @@ export const Box = styled(motion.div)`
   flex-direction: column;
 
   padding: 20px;
+  margin-top: 20px;
 
   input {
     border-bottom: 1px solid var(--primary);

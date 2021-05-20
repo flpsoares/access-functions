@@ -18,8 +18,8 @@ import {
 
 import api from '../../services/api'
 
-import { DeleteLinkContext } from '../../contexts/DeleteLink'
-import { UpdateLinkContext } from '../../contexts/UpdateLink'
+import { DeleteLinkContext } from '../../contexts/DeleteLinkContext'
+import { UpdateLinkContext } from '../../contexts/UpdateLinkContext'
 
 interface LinkProps {
   title: string,

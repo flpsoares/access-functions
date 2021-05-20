@@ -1,11 +1,9 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
-export const Container = styled.div`
+import { motion } from 'framer-motion'
+
+export const Container = styled(motion.div)`
   width: 400px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 
   padding: 8px 5px;
 
@@ -13,6 +11,16 @@ export const Container = styled.div`
   border-radius: 4px;
 
   margin-top: 10px;
+
+  position: relative;
+`
+
+export const Content = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  overflow: hidden;
 
   p {
     font-size: 18px;
@@ -26,5 +34,35 @@ export const Container = styled.div`
     &:hover {
       filter: brightness(0.9);
     }
+  }
+`
+
+const loading = keyframes`
+  from {
+    width: 0px;
+  }
+ 
+  to {
+    width: 400px;
+  }
+`
+
+export const Progress =  styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+
+  
+
+  div {
+    animation: ${loading} 5s linear;
+    background: rgba(0, 0, 0, 0.6);
+
+    height: 100%;
+
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
   }
 `
