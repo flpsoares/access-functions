@@ -2,6 +2,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { Container } from './styles/styles'
 
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
+
 import api from './services/api'
 
 import { useAlert } from './hooks/useAlert'
@@ -25,7 +27,7 @@ interface LinkProps {
   title: string
   url: string
   icon: string
-  views: string
+  views: number
 }
 
 function App() {
@@ -45,24 +47,63 @@ function App() {
     })
   }, [linkLength, linkUpdated])
 
+  const handleOnDragEnd = (result: DropResult) => {
+    if(!result.destination) return  
+    const items = Array.from(links)
+    const [reorderedItem] = items.splice(result.source.index, 1)
+    items.splice(result.destination.index, 0, reorderedItem)
+
+    api.put('link', {
+      items: items.map((item, index) => {
+        return {
+          title: item.title,
+          order: index
+        }
+      })
+    })
+
+    console.log(items)
+
+    setLinks(items)
+  }
+
   return (
     <AnimatePresence>
       <Container>
         <button onClick={openModalCreateLink}>Criar</button>
-          { success && <Alert success content={success} /> }
-          { 
-            links.map(link => {
-              return (
-                <Link
-                  key={link.id}
-                  title={link.title}
-                  url={link.url}
-                  icon={link.icon}
-                  views={link.views}
-                />
-              )
-            })
-          }
+          { success && <Alert isSuccess content={success} /> }
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="links">
+              {(provided) => {
+                return (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {
+                    links.map((link, index) => {
+                      return (
+                        <Draggable key={link.id} draggableId={String(link.id)} index={index}>
+                          {(provided) => {
+                            return (
+                              <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                                <Link
+                                  title={link.title}
+                                  url={link.url}
+                                  icon={link.icon}
+                                  views={link.views}
+                                />
+                              </div>
+                            )
+                          }}
+                        </Draggable>
+                      )
+                    })
+                  }
+                  {provided.placeholder}
+                </div>
+                )
+              }
+              }
+            </Droppable>
+          </DragDropContext>
           { modalCreateLinkIsOpen &&  <ModalCreateLink />}
           { deleteTitle && <ModalDeleteLink title={deleteTitle} /> }
           { updateIcon &&  <ModalUpdateLink title={updateTitle} url={updateUrl} icon={updateIcon} /> }

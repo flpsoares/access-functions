@@ -22,13 +22,14 @@ import { DeleteLinkContext } from '../../contexts/DeleteLinkContext'
 import { UpdateLinkContext } from '../../contexts/UpdateLinkContext'
 
 interface LinkProps {
-  title: string,
-  url: string,
-  icon: string,
-  views: string
+  title: string
+  url: string
+  icon: string
+  views: number
+  [key: string]: any
 }
 
-const Link: React.FC<LinkProps> = ({ title, url, icon, views}) => {
+const Link: React.FC<LinkProps> = ({ title, url, icon, views, ...rest}) => {
   const [currentIcon, setCurrentIcon] = useState<IconBaseProps>()
 
   const { setDeleteTitle } = useContext(DeleteLinkContext)
@@ -80,7 +81,7 @@ const Link: React.FC<LinkProps> = ({ title, url, icon, views}) => {
   }
 
   return (
-    <Container>
+    <Container {...rest}>
       <div>
         {currentIcon}
       </div>

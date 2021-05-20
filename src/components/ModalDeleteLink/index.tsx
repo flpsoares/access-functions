@@ -7,6 +7,7 @@ import api from '../../services/api'
 
 import { DeleteLinkContext } from '../../contexts/DeleteLinkContext'
 import { UpdateListContext } from '../../contexts/UpdateListContext'
+import AlertEvents from '../../events/AlertEvents'
 
 interface LinkProps {
   title: string
@@ -19,9 +20,12 @@ const ModalDeleteLink: React.FC<LinkProps> = ({title}) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault()
 
-    api.delete(`link/${title}`)
-    removeLink()
-    closeModal()
+    api.delete(`link/${title}`).then(() => {
+      AlertEvents.emit('currentSuccess', 'Link excluído com sucesso!')
+      AlertEvents.emit('currentError', '')
+      removeLink()
+      closeModal()
+    })
   }
 
   const closeModal = () => {

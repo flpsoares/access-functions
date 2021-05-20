@@ -1,5 +1,4 @@
 import { useState, createContext, ReactNode } from 'react'
-import AlertEvents from '../events/AlertEvents'
 
 interface UpdateListContextData {
   linkLength: number
@@ -22,21 +21,15 @@ export function UpdateListProvider({children}: UpdateListProviderProps) {
 
   const addLink = () => {
     setLinkLength(linkLength + 1)
-    AlertEvents.emit('currentSuccess', 'Link adicionado com sucesso!')
-    AlertEvents.emit('currentError', '')
   }
 
   const removeLink = () => {
     setLinkLength(linkLength - 1)
-    AlertEvents.emit('currentSuccess', 'Link removido com sucesso!')
-    AlertEvents.emit('currentError', '')
   }
 
 
   const updateLink = () => {
     setLinkUpdated(!linkUpdated)
-    AlertEvents.emit('currentSuccess', 'Link atualizado com sucesso!')
-    AlertEvents.emit('currentError', '')
   }
 
   return (

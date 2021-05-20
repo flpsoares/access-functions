@@ -43,7 +43,7 @@ const loading = keyframes`
   }
  
   to {
-    width: 400px;
+    width: 100%;
   }
 `
 
@@ -53,9 +53,7 @@ export const Progress =  styled.div`
   bottom: 0;
   height: 3px;
   width: 100%;
-
   
-
   div {
     animation: ${loading} 5s linear;
     background: rgba(0, 0, 0, 0.6);

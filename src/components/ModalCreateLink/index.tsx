@@ -12,6 +12,7 @@ import { useAlert } from '../../hooks/useAlert'
 import { UpdateListContext } from '../../contexts/UpdateListContext'
 import { CreateLinkContext } from '../../contexts/ModalCreateLinkContext'
 import Alert from '../Alert'
+import AlertEvents from '../../events/AlertEvents'
 
 const ModalCreateLink: React.FC = () => {
   const { closeModalCreateLink } = useContext(CreateLinkContext)
@@ -24,17 +25,33 @@ const ModalCreateLink: React.FC = () => {
   const iconRef = useRef() as MutableRefObject<HTMLSelectElement>
 
   const handleSubmit = async (e: any) => {
+    const validateField = (field: any) => {
+      return field.current.value.length > 0
+    }
+
     e.preventDefault()
 
-    api.post('link', {
-      title: titleRef.current.value,
-      url: urlRef.current.value,
-      icon: iconRef.current.value,
-      views: 0
-    })
+    const isTitleValidated = validateField(titleRef)
+    const isUrlValidated = validateField(urlRef)
 
-    addLink()
-    closeModalCreateLink()
+    if(isTitleValidated && isUrlValidated) {
+      api.post('link', {
+        title: titleRef.current.value,
+        url: urlRef.current.value,
+        icon: iconRef.current.value,
+        views: 0
+      }).then(() => {
+        AlertEvents.emit('currentSuccess', 'Link adicionado com sucesso!')
+        addLink()
+        closeModalCreateLink()
+      })
+
+    } else {
+      const errors = []
+      if(!isTitleValidated) errors.push('Por favor, insira um título')
+      if(!isUrlValidated) errors.push('Por favor, insira uma url')
+      AlertEvents.emit('currentError', errors.join(', '))
+    }
   }
 
   return (

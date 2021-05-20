@@ -6,11 +6,11 @@ import AlertEvents from '../../events/AlertEvents'
 import { useEffect } from 'react'
 
 interface AlertProps {
-  success?: boolean
+  isSuccess?: boolean
   content: string
 }
 
-const Alert: React.FC<AlertProps> = ({success, content}) => {
+const Alert: React.FC<AlertProps> = ({isSuccess, content}) => {
   const colorError = '#F44336'
   const colorSuccess = '#5cb85c'
 
@@ -20,7 +20,7 @@ const Alert: React.FC<AlertProps> = ({success, content}) => {
   }
 
   useEffect(() => {
-    setInterval(() => {
+    setTimeout(() => {
       AlertEvents.emit('currentSuccess', '')
       AlertEvents.emit('currentError', '')
     }, 5000)
@@ -28,7 +28,7 @@ const Alert: React.FC<AlertProps> = ({success, content}) => {
 
   return (
     <Container
-      color={success ? colorSuccess : colorError}
+      color={isSuccess ? colorSuccess : colorError}
       initial={{scale: 0}}
       animate={{scale: 1}}
       exit={{scale: 0}}

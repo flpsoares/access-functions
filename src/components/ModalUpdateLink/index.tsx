@@ -7,6 +7,7 @@ import api from '../../services/api'
 
 import { UpdateLinkContext } from '../../contexts/UpdateLinkContext'
 import { UpdateListContext } from '../../contexts/UpdateListContext'
+import AlertEvents from '../../events/AlertEvents'
 
 interface LinkProps {
   title: string
@@ -33,10 +34,12 @@ const ModalUpdateLink: React.FC<LinkProps> = ({ title, url, icon }) => {
       title: titleRef.current.value,
       url: urlRef.current.value,
       icon: iconRef.current.value
+    }).then(() => {
+      AlertEvents.emit('currentSuccess', 'Link atualizado com sucesso!')
+      updateLink()
+      closeModal()
     })
 
-    updateLink()
-    closeModal()
   }
 
   return (
