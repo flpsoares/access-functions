@@ -2,8 +2,10 @@ import { useState, createContext, ReactNode } from 'react'
 
 interface DeleteLinkContextData {
   deleteTitle: string
+  deleteId: number
   modalDeleteLinkIsOpen: boolean
   setDeleteTitle: (title: string) => void
+  setDeleteId: (id: number) => void
   openModalDeleteLink: () => void
   closeModalDeleteLink: () => void
 }
@@ -18,6 +20,7 @@ export function DeleteLinkProvider({ children }: DeleteLinkProviderProps) {
   const [modalDeleteLinkIsOpen, setModalDeleteLinkIsOpen] = useState(false)
 
   const [deleteTitle, setDeleteTitle] = useState('')
+  const [deleteId, setDeleteId] = useState(0)
 
   const openModalDeleteLink = () => {
     setModalDeleteLinkIsOpen(true)
@@ -34,7 +37,9 @@ export function DeleteLinkProvider({ children }: DeleteLinkProviderProps) {
         openModalDeleteLink,
         closeModalDeleteLink,
         deleteTitle,
-        setDeleteTitle
+        setDeleteTitle,
+        deleteId,
+        setDeleteId
       }}
     >
       {children}

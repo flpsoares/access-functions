@@ -10,17 +10,18 @@ import { UpdateListContext } from '../../contexts/UpdateListContext'
 import AlertEvents from '../../events/AlertEvents'
 
 interface LinkProps {
+  id: number
   title: string
 }
 
-const ModalDeleteLink: React.FC<LinkProps> = ({ title }) => {
+const ModalDeleteLink: React.FC<LinkProps> = ({ id, title }) => {
   const { setDeleteTitle } = useContext(DeleteLinkContext)
   const { removeLink } = useContext(UpdateListContext)
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
 
-    api.delete(`link/${title}`).then(() => {
+    api.delete(`link/${id}`).then(() => {
       AlertEvents.emit('currentSuccess', 'Link excluído com sucesso!')
       AlertEvents.emit('currentError', '')
       removeLink()

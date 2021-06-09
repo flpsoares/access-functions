@@ -22,6 +22,7 @@ import { DeleteLinkContext } from '../../contexts/DeleteLinkContext'
 import { UpdateLinkContext } from '../../contexts/UpdateLinkContext'
 
 interface LinkProps {
+  id: number
   title: string
   url: string
   icon: string
@@ -29,11 +30,12 @@ interface LinkProps {
   [key: string]: any
 }
 
-const Link: React.FC<LinkProps> = ({ title, url, icon, views, ...rest }) => {
+const Link: React.FC<LinkProps> = ({ id, title, url, icon, views, ...rest }) => {
   const [currentIcon, setCurrentIcon] = useState<IconBaseProps>()
 
-  const { setDeleteTitle } = useContext(DeleteLinkContext)
-  const { UpdateInfos, updateUrl } = useContext(UpdateLinkContext)
+  const { setDeleteTitle, setDeleteId, deleteId, deleteTitle } =
+    useContext(DeleteLinkContext)
+  const { UpdateInfos } = useContext(UpdateLinkContext)
 
   useEffect(() => {
     switch (icon) {
@@ -67,15 +69,16 @@ const Link: React.FC<LinkProps> = ({ title, url, icon, views, ...rest }) => {
   }, [icon])
 
   const getDeleteInfo = () => {
-    api.get(`link/${title}`).then((res) => {
+    api.get(`link/${id}`).then((res) => {
+      console.log(res.data)
       setDeleteTitle(res.data.title)
+      setDeleteId(res.data.id)
     })
   }
 
   const getUpdateInfo = () => {
     api.get(`link/${title}`).then((res) => {
       UpdateInfos(res.data.title, res.data.url, res.data.icon)
-      console.log(updateUrl)
     })
   }
 

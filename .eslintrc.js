@@ -19,11 +19,12 @@ module.exports = {
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'no-undef': 'off',
-    'no-unised-vars': [0],
+    'no-unused-vars': 'warn',
     camelcase: 'off',
     'no-useless-constructor': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/no-children-prop': 'off',
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    'react-hooks/exhaustive-deps': 'off'
   }
 }

@@ -14,6 +14,7 @@ export const Container = styled(motion.div)`
   background: rgba(0, 0, 0, 0.7);
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1;
@@ -29,6 +30,8 @@ export const Box = styled(motion.div)`
 
   border: 1px solid var(--text-primary);
   border-radius: 5px;
+
+  margin-top: 10px;
 
   select {
     width: 110px;

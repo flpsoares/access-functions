@@ -38,7 +38,7 @@ function App() {
   const { modalCreateLinkIsOpen, openModalCreateLink } =
     useContext(CreateLinkContext)
   const { linkLength, setLinkLength, linkUpdated } = useContext(UpdateListContext)
-  const { deleteTitle } = useContext(DeleteLinkContext)
+  const { deleteTitle, deleteId } = useContext(DeleteLinkContext)
   const { updateTitle, updateUrl, updateIcon } = useContext(UpdateLinkContext)
 
   const { success } = useAlert()
@@ -66,8 +66,6 @@ function App() {
         }
       })
     })
-
-    console.log(items)
 
     setLinks(items)
   }
@@ -97,6 +95,7 @@ function App() {
                               ref={provided.innerRef}
                             >
                               <Link
+                                id={link.id}
                                 title={link.title}
                                 url={link.url}
                                 icon={link.icon}
@@ -115,7 +114,7 @@ function App() {
           </Droppable>
         </DragDropContext>
         {modalCreateLinkIsOpen && <ModalCreateLink />}
-        {deleteTitle && <ModalDeleteLink title={deleteTitle} />}
+        {deleteId && <ModalDeleteLink id={deleteId} title={deleteTitle} />}
         {updateIcon && (
           <ModalUpdateLink title={updateTitle} url={updateUrl} icon={updateIcon} />
         )}
